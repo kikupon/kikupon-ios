@@ -4,6 +4,6 @@ describe "Application 'IBSample'" do
   end
 
   it "has one window" do
-    @app.windows.size.should == 1
+    @app.windows.size.should == 0
   end
 end
