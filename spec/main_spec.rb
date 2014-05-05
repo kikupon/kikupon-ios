@@ -1,4 +1,4 @@
-describe "Application 'kikupon-ios'" do
+describe "Application 'IBSample'" do
   before do
     @app = UIApplication.sharedApplication
   end
