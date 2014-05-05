@@ -4,7 +4,7 @@ class AppDelegate
 
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
 
-    storyboard = UIStoryboard.storyboardWithName('Storyboard', bundle: nil)
+    storyboard = UIStoryboard.storyboardWithName('Main', bundle: nil)
 
     @window.rootViewController = storyboard.instantiateInitialViewController
     @window.makeKeyAndVisible
