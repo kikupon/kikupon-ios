@@ -10,10 +10,6 @@ class LoginViewController < UIViewController
     @label.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 4)
     self.view.addSubview @label
 
-    self.title = "ログイン"
-    right_button = UIBarButtonItem.alloc.initWithTitle("Push", style: UIBarButtonItemStyleBordered, target:self, action:'push')
-    self.navigationItem.rightBarButtonItem = right_button
-
     hoge_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     hoge_button.backgroundColor = UIColor.grayColor
     hoge_button.sizeToFit
@@ -31,18 +27,13 @@ class LoginViewController < UIViewController
     hoge_button.tintColor = UIColor.blackColor
     hoge_button.addTarget(self, action:'getFacebookInfo', forControlEvents:UIControlEventTouchUpInside)
     self.view.addSubview hoge_button
+    @alert = UIAlertView.new
   end
 
-  def push
-    login_view_controller = LoginViewController.new
-    self.navigationController.pushViewController(login_view_controller, animated: true)
-    #@facebook = SLComposeViewController.composeViewControllerForServiceType(SLServiceTypeFacebook)
-    #self.presentViewController(@facebook, animated:TRUE, completion:nil)
-  end
   def initWithNibName(name, bundle: bundle)
-      super
-      self.tabBarItem = UITabBarItem.alloc.initWithTabBarSystemItem(UITabBarSystemItemFavorites, tag: 1)
-      self
+    super
+    self.tabBarItem = UITabBarItem.alloc.initWithTabBarSystemItem(UITabBarSystemItemFavorites, tag: 1)
+    self
   end
   # type :twitter or :facebook
   def getSocialInfo(type)
@@ -66,10 +57,10 @@ class LoginViewController < UIViewController
     end
   end
   def getTwitterInfo
-      getSocialInfo :twitter
+    getSocialInfo :twitter
   end
   def getFacebookInfo
-      getSocialInfo :facebook
+    getSocialInfo :facebook
   end
   def connectSocial(type, options)
     if type == :twitter
@@ -95,15 +86,21 @@ class LoginViewController < UIViewController
         user.twitter_user_id = user_id
         user.user_name = user_name
         user.save
-        alert = UIAlertView.alloc.init
-        alert.message = "user_id: #{user.twitter_user_id}\nuser_name: #{user_name}"
-        alert.delegate = self
-        alert.addButtonWithTitle "OK"
-        alert.show
+        @alert.message = "user_id: #{user.twitter_user_id}\nuser_name: #{user_name}"
+        @alert.delegate = self
+        @alert.addButtonWithTitle "login success"
+        @alert.show
       else
         NSLog("error: #{error.description}")
       end
     end
     @account_store.requestAccessToAccountsWithType(@account_type, options: options, completion: completion)
+  end
+  def alertView(alertView, clickedButtonAtIndex:buttonIndex)
+    proceedNextPage
+  end
+  def proceedNextPage
+    item_view_controller = ItemsViewController.new
+    self.navigationController.pushViewController(item_view_controller, animated: true)
   end
 end

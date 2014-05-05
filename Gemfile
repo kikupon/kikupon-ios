@@ -1,6 +1,15 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'bubble-wrap'
+gem 'ib'
+gem 'bubble-wrap', require: 'bubble-wrap/location'
+gem 'map-kit-wrapper'
 gem 'sugarcube'
-# Add your dependencies here:
+gem 'awesome_print_motion'
+gem 'webstub'
+gem 'motion-stump'
+
+group :development do
+  gem 'guard'
+  gem 'guard-test'
+end

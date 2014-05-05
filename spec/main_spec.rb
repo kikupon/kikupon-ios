@@ -1,9 +1,9 @@
-describe "Application 'kikupon-ios'" do
+describe "Application 'IBSample'" do
   before do
     @app = UIApplication.sharedApplication
   end
 
   it "has one window" do
-    @app.windows.size.should == 1
+    @app.windows.size.should == 0
   end
 end
