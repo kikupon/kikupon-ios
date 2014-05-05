@@ -1,4 +1,5 @@
 class LoginViewController < UIViewController
+  attr_accessor :delegate
   def viewDidLoad
     super
 
@@ -100,7 +101,9 @@ class LoginViewController < UIViewController
     proceedNextPage
   end
   def proceedNextPage
-    item_view_controller = ItemsViewController.new
-    self.navigationController.pushViewController(item_view_controller, animated: true)
+    delegate.dismissViewControllerAnimated(false, completion: nil)
+  end
+  def viewWillDisappear(animated)
+    delegate.load
   end
 end
