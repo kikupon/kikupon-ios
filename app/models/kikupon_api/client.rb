@@ -1,7 +1,6 @@
 module KikuponAPI
   class Client
-#    BASE_URL = 'http://kikupon-api.herokuapp.com/s/v1/get_rests'
-    BASE_URL = 'http://localhost:3000/s/v1/get_rests'
+    BASE_URL = 'http://kikupon-api.herokuapp.com/s/v1/get_rests'
 
     def self.fetch_recommended_shops(user_id, lat, lng, &block)
 
