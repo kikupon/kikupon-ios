@@ -2,10 +2,31 @@ class ShopsController < UIViewController
   attr_accessor :shops
   extend IB
 
+  def viewDidAppear(animated)
+    super(animated)
+
+    user = ApplicationUser.sharedUser
+    if !user.is_logined
+        self.show_login_view
+    end
+  end
+
+  def show_login_view
+    storyboard = UIStoryboard.storyboardWithName("Account", bundle: nil)
+    vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
+    vc.setModalPresentationStyle(UIModalPresentationFullScreen)
+    vc.delegate = self
+    self.presentViewController(vc,  animated: true, completion: nil)
+  end
+
   def viewDidLoad
     super
 
-    self.load
+    user = ApplicationUser.sharedUser
+    if user.is_logined
+        NSLog(user.user_id)
+        self.load
+    end
   end
 
   def load

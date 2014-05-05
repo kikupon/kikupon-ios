@@ -17,3 +17,4 @@ nbproject
 Gemfile.lock
 .bundle
 vendor
+/ib.xcodeproj
