@@ -1,34 +1,11 @@
 class LoginViewController < UIViewController
+  extend IB
+  outlet :fb_login_button, UIButton
+
   attr_accessor :delegate
+
   def viewDidLoad
     super
-
-    self.view.backgroundColor = UIColor.whiteColor
-
-    @label = UILabel.alloc.initWithFrame(CGRectZero)
-    @label.text = "きくぽん"
-    @label.sizeToFit
-    @label.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 4)
-    self.view.addSubview @label
-
-    hoge_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    hoge_button.backgroundColor = UIColor.grayColor
-    hoge_button.sizeToFit
-    hoge_button.frame = CGRectMake(20, 400, self.view.frame.size.width-40, 50)
-    hoge_button.setTitle("Connect with Twitter", forState: UIControlStateNormal)
-    hoge_button.tintColor = UIColor.blackColor
-    hoge_button.addTarget(self, action:'getTwitterInfo', forControlEvents:UIControlEventTouchUpInside)
-    self.view.addSubview hoge_button
-
-    hoge_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    hoge_button.backgroundColor = UIColor.grayColor
-    hoge_button.sizeToFit
-    hoge_button.frame = CGRectMake(20, 340, self.view.frame.size.width-40, 50)
-    hoge_button.setTitle("Connect with Facebook", forState: UIControlStateNormal)
-    hoge_button.tintColor = UIColor.blackColor
-    hoge_button.addTarget(self, action:'getFacebookInfo', forControlEvents:UIControlEventTouchUpInside)
-    self.view.addSubview hoge_button
-    @alert = UIAlertView.new
   end
 
   def initWithNibName(name, bundle: bundle)
@@ -87,18 +64,13 @@ class LoginViewController < UIViewController
         user.twitter_user_id = user_id
         user.user_name = user_name
         user.save
-        @alert.message = "user_id: #{user.twitter_user_id}\nuser_name: #{user_name}"
-        @alert.delegate = self
-        @alert.addButtonWithTitle "login success"
-        @alert.show
+        NSLog("login success")
+        proceedNextPage
       else
         NSLog("error: #{error.description}")
       end
     end
     @account_store.requestAccessToAccountsWithType(@account_type, options: options, completion: completion)
-  end
-  def alertView(alertView, clickedButtonAtIndex:buttonIndex)
-    proceedNextPage
   end
   def proceedNextPage
     delegate.dismissViewControllerAnimated(false, completion: nil)
